@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(
+  //   MultiProvider(
+  //     providers: const [],
+  //     child: const MyApp(),
+  //   ),
+  // );
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
