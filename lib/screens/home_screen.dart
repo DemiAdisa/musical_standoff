@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+  late double? _deviceWidth;
+  late double? _deviceHeight;
+
+  HomeScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+
+    _deviceWidth = MediaQuery.of(context).size.width;
+    _deviceHeight = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: ColorList().getColor1(),
       body: SafeArea(
@@ -24,19 +34,29 @@ class HomeScreen extends StatelessWidget {
 
   Widget _imageContainer() {
     return SizedBox(
-      width: 250,
-      height: 250,
+      width: _deviceWidth! * 0.6,
+      height: _deviceHeight! * 0.6,
       child: Image.asset("assets/Logo_Files/png/logo-color-circle.png"),
     );
   }
 
   Widget _homeButtons() {
-    return Column(
-      children: [
-        ElevatedButton(onPressed: () {}, child: const Text("Start a Game")),
-        ElevatedButton(onPressed: () {}, child: const Text("Start a Game")),
-        ElevatedButton(onPressed: () {}, child: const Text("Start a Game")),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget> [
+          CapsuleButton(
+              buttonText: "Start a Game",
+              buttonCallback: () {
+                print("received");
+              }),
+          CapsuleButton(
+              buttonText: "Start a Game2",
+              buttonCallback: () {
+                print("received2");
+              })
+        ],
+      ),
     );
   }
 }
