@@ -31,7 +31,7 @@ class CapsuleButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(_deviceWidth! * 0.03),
         decoration: BoxDecoration(
-          color: ColorList().getColor2(),
+          color: ColorList().yellow(),
           boxShadow: const [
             BoxShadow(blurRadius: 20.0),
           ],
@@ -39,7 +39,7 @@ class CapsuleButton extends StatelessWidget {
             Radius.circular(20),
           ),
         ),
-        child: Text(buttonText),
+        child: Text(buttonText, style: TextStyle(fontWeight: FontWeight.bold),),
       ),
     );
   }
