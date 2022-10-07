@@ -1,11 +1,34 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late double? _deviceWidth;
   late double? _deviceHeight;
 
-  HomeScreen({Key? key}) : super(key: key);
+  AnimationController? _rotatingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _rotatingController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 10,
+      ),
+    );
+
+    _rotatingController!.repeat();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +37,28 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _imageContainer(),
-              _homeButtons(context),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _imageContainer(),
+            _homeButtons(context),
+          ],
         ),
       ),
     );
   }
 
   Widget _imageContainer() {
-    return Center(
+    return AnimatedBuilder(
+      animation: _rotatingController!.view,
+      builder: (context, child) {
+        return Transform.rotate(
+          angle: _rotatingController!.value * 2 * pi,
+          child: child,
+        );
+      },
       child: SizedBox(
         width: _deviceWidth! * 0.6,
         height: _deviceHeight! * 0.6,
@@ -52,7 +82,7 @@ class HomeScreen extends StatelessWidget {
           CapsuleButton(
             buttonText: "How to Play",
             buttonCallback: () {
-              print("received");
+              Navigator.pushNamed(_context, "instructions");
             },
           ),
           CapsuleButton(

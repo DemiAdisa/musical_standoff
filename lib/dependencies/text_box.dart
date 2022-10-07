@@ -28,7 +28,7 @@ class TextBox extends StatelessWidget {
         boxShadow: const [
           BoxShadow(
             color: Colors.white,
-            blurRadius: 3.0,
+            blurRadius: 10.0,
           ),
         ],
         borderRadius: const BorderRadius.all(
@@ -37,7 +37,7 @@ class TextBox extends StatelessWidget {
       ),
       child: Text(
         boxText,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
           // fontFamily:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
+import 'package:musical_standoff/screens/instructions.dart';
 import 'package:musical_standoff/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => HomeScreen(),
           "settings": (context) => SettingsScreen(),
+          "instructions": (context) => InstructionsScreen(),
+
         });
   }
 }
