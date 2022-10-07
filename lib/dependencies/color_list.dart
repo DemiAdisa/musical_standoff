@@ -1,15 +1,22 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class ColorList {
 
-  final Color _color1 = const Color(0xFF2B3B4C);
-  final Color _color2 = const Color(0xFFfbcd08);
+  final Color _midnight = const Color(0xFF2B3B4C);
+  final Color _yellow = const Color(0xFFfbcd08);
+  final Color _black = Colors.black;
 
-  Color getColor1() {
-    return _color1;
+  Color midnight() {
+    return _midnight;
   }
 
-  Color getColor2() {
-    return _color2;
+  Color yellow() {
+    return _yellow;
+  }
+
+  Color black() {
+    return _black;
   }
 }
