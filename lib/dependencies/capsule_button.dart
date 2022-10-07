@@ -9,9 +9,8 @@ class CapsuleButton extends StatelessWidget {
   final String buttonText;
   final Function buttonCallback;
   late double? _deviceWidth;
+
   // late double? _deviceHeight;
-
-
 
   CapsuleButton({
     required this.buttonText,
@@ -20,7 +19,6 @@ class CapsuleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     _deviceWidth = MediaQuery.of(context).size.width;
     // _deviceHeight = MediaQuery.of(context).size.width;
 
@@ -33,13 +31,16 @@ class CapsuleButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: ColorList().yellow(),
           boxShadow: const [
-            BoxShadow(blurRadius: 20.0),
+            BoxShadow(blurRadius: 15.0),
           ],
           borderRadius: const BorderRadius.all(
             Radius.circular(20),
           ),
         ),
-        child: Text(buttonText, style: TextStyle(fontWeight: FontWeight.bold),),
+        child: Text(
+          buttonText,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
