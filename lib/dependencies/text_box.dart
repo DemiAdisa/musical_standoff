@@ -25,14 +25,14 @@ class TextBox extends StatelessWidget {
       padding: EdgeInsets.all(_deviceWidth! * 0.03),
       decoration: BoxDecoration(
         color: ColorList().yellow(),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.white,
-            blurRadius: 10.0,
-          ),
-        ],
+        // boxShadow: const [
+        //   BoxShadow(
+        //     color: Colors.white,
+        //     blurRadius: 10.0,
+        //   ),
+        // ],
         borderRadius: const BorderRadius.all(
-          Radius.circular(3.0),
+          Radius.circular(10.0),
         ),
       ),
       child: Text(
