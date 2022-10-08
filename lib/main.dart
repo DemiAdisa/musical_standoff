@@ -1,4 +1,7 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:musical_standoff/providers/game_settings_provider.dart';
+import 'package:musical_standoff/screens/game_settings.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
 import 'package:musical_standoff/screens/instructions.dart';
 import 'package:musical_standoff/screens/settings_screen.dart';
@@ -6,16 +9,19 @@ import 'package:provider/provider.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 
 void main() {
-  // runApp(
-  //   MultiProvider(
-  //     providers: const [],
-  //     child: const MyApp(),
-  //   ),
-  // );
-
   runApp(
-    const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GameSettings())
+
+      ],
+      child: const MyApp(),
+    ),
   );
+  //
+  // runApp(
+  //   const MyApp(),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -34,6 +40,7 @@ class MyApp extends StatelessWidget {
           "/": (context) => HomeScreen(),
           "settings": (context) => SettingsScreen(),
           "instructions": (context) => InstructionsScreen(),
+          "game_settings": (context) => GameSettingsScreen(),
 
         });
   }

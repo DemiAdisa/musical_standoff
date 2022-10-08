@@ -17,9 +17,11 @@ class _HomeScreenState extends State<HomeScreen>
 
   AnimationController? _rotatingController;
 
+  //We initialize state to begin the animation of the logo
   @override
   void initState() {
     super.initState();
+
     _rotatingController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
+    //Puts the rotation Animation in a Looping Manner
     _rotatingController!.repeat();
   }
 
@@ -67,28 +70,34 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _homeButtons(BuildContext _context) {
+  Widget _homeButtons(BuildContext context) {
+
+    // TODO: MainAxisAlignment.spaceEvenly is not functioning properly, fix
+    //Using SizedBox in the meantime
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           CapsuleButton(
             buttonText: "Start a Game",
             buttonCallback: () {
-              print("received");
+              // TODO: CHeck for internet connection before pushing next screen
+              Navigator.pushNamed(context, "game_settings");
             },
           ),
+          const SizedBox(height: 12,),
           CapsuleButton(
             buttonText: "How to Play",
             buttonCallback: () {
-              Navigator.pushNamed(_context, "instructions");
+              Navigator.pushNamed(context, "instructions");
             },
           ),
+          const SizedBox(height: 12,),
           CapsuleButton(
               buttonText: "Settings",
               buttonCallback: () {
-                Navigator.pushNamed(_context, "settings");
+                Navigator.pushNamed(context, "settings");
               })
         ],
       ),
