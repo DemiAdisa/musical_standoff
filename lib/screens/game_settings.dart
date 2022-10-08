@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
+import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
 import '../dependencies/color_list.dart';
+import '../providers/game_settings_provider.dart';
 
 class GameSettingsScreen extends StatefulWidget {
   GameSettingsScreen({Key? key}) : super(key: key);
@@ -53,6 +55,9 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                           setState(() {
                             selectedRadio = 10;
                           });
+
+                          context.read<GameSettings>().setRounds10();
+                          print(context.read<GameSettings>().rounds);
                         },
                       )),
                   const SizedBox(
@@ -75,6 +80,9 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                         setState(() {
                           selectedRadio = 15;
                         });
+
+                        context.read<GameSettings>().setRounds15();
+                        print(context.read<GameSettings>().rounds);
                       },
                     ),
                   ),
@@ -98,6 +106,9 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                         setState(() {
                           selectedRadio = 20;
                         });
+
+                        context.read<GameSettings>().setRounds20();
+                        print(context.read<GameSettings>().rounds);
                       },
                     ),
                   ),
