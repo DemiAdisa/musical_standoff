@@ -22,6 +22,8 @@ class CapsuleButton extends StatelessWidget {
     _deviceWidth = MediaQuery.of(context).size.width;
     // _deviceHeight = MediaQuery.of(context).size.width;
 
+
+    // TODO: Change to Raised Button and See if it looks better and works better
     return GestureDetector(
       onTap: () {
         buttonCallback();

@@ -21,6 +21,11 @@ class GameSettings with ChangeNotifier {
     notifyListeners();
   }
 
+  void setCustomRounds(int val) {
+    _numOfRounds = val;
+    notifyListeners();
+  }
+
   void decrementRounds() {
     _numOfRounds--;
     notifyListeners();

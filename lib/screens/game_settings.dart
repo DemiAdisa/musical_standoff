@@ -18,6 +18,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
   late double? _deviceHeight;
 
   int selectedRadio = 10;
+  bool selectCustomRounds = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,82 +38,149 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                 SizedBox(
                   height: _deviceHeight! * 0.1,
                 ),
-                Column(children: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: RadioListTile<int>(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        title: const Text("Play Ten Rounds"),
-                        subtitle: const Text("Game would go for 10 rounds"),
-                        tileColor: ColorList().yellow(),
-                        value: 10,
-                        groupValue: selectedRadio,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedRadio = 10;
-                          });
-
-                          context.read<GameSettings>().setRounds10();
-                          print(context.read<GameSettings>().rounds);
-                        },
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
+                Expanded(
+                  child: Container(
+                    // TODO: Figure out how to use clip behaviour in Container
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
+                      horizontal: 30,
                     ),
-                    child: RadioListTile<int>(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      title: const Text("Play Fifteen Rounds"),
-                      subtitle: const Text("Game would go for 15 rounds"),
-                      tileColor: ColorList().yellow(),
-                      value: 15,
-                      groupValue: selectedRadio,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedRadio = 15;
-                        });
+                    child: SingleChildScrollView(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RadioListTile<int>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              title: const Text("Play Ten Rounds"),
+                              subtitle:
+                                  const Text("Game would go for 10 rounds"),
+                              tileColor: ColorList().yellow(),
+                              value: 10,
+                              groupValue: selectedRadio,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedRadio = 10;
+                                });
 
-                        context.read<GameSettings>().setRounds15();
-                        print(context.read<GameSettings>().rounds);
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: RadioListTile<int>(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      title: const Text("Play Twenty Rounds"),
-                      subtitle: const Text("Game would go for 20 rounds"),
-                      tileColor: ColorList().yellow(),
-                      value: 20,
-                      groupValue: selectedRadio,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedRadio = 20;
-                        });
+                                context.read<GameSettings>().setRounds10();
+                              },
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            RadioListTile<int>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              title: const Text("Play Fifteen Rounds"),
+                              subtitle:
+                                  const Text("Game would go for 15 rounds"),
+                              tileColor: ColorList().yellow(),
+                              value: 15,
+                              groupValue: selectedRadio,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedRadio = 15;
+                                });
 
-                        context.read<GameSettings>().setRounds20();
-                        print(context.read<GameSettings>().rounds);
-                      },
+                                context.read<GameSettings>().setRounds15();
+                              },
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            RadioListTile<int>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              title: const Text("Play Twenty Rounds"),
+                              subtitle:
+                                  const Text("Game would go for 20 rounds"),
+                              tileColor: ColorList().yellow(),
+                              value: 20,
+                              groupValue: selectedRadio,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedRadio = 20;
+                                });
+
+                                context.read<GameSettings>().setRounds20();
+                                print(context.read<GameSettings>().rounds);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SwitchListTile.adaptive(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              value: selectCustomRounds,
+                              onChanged: (valueVar) {
+                                selectedRadio = selectedRadio == 0
+                                    ? (selectedRadio = 10)
+                                    : selectedRadio = 0;
+
+                                setState(() {
+                                  selectCustomRounds = !selectCustomRounds;
+                                });
+                                context
+                                    .read<GameSettings>()
+                                    .setCustomRounds(30);
+
+                                print(selectedRadio);
+                                print(context.read<GameSettings>().rounds);
+                              },
+                              tileColor: ColorList().yellow(),
+                              title: const Text("Set Custom Rounds"),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Visibility(
+                              visible: selectCustomRounds,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                ),
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    // enabledBorder: OutlineInputBorder(
+                                    //   borderSide: BorderSide(
+                                    //     width: 2,
+                                    //     color: ColorList().yellow(),
+                                    //   ),
+                                    //   borderRadius:
+                                    //       const BorderRadius.all(Radius.circular(20.0)),
+                                    // ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorList().yellow(),
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
                     ),
                   ),
-                ])
+                ),
               ],
             ),
           ),
