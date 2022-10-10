@@ -86,14 +86,12 @@ class _HomeScreenState extends State<HomeScreen>
               Navigator.pushNamed(context, "game_settings");
             },
           ),
-          const SizedBox(height: 12,),
           CapsuleButton(
             buttonText: "How to Play",
             buttonCallback: () {
               Navigator.pushNamed(context, "instructions");
             },
           ),
-          const SizedBox(height: 12,),
           CapsuleButton(
               buttonText: "Settings",
               buttonCallback: () {

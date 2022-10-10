@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class GameSettings with ChangeNotifier {
-  int _numOfRounds = 0;
+
+  //Default Number of Rounds is 10
+  int _numOfRounds = 10;
 
   int get rounds => _numOfRounds;
 

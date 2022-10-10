@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
@@ -20,10 +21,13 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
   int selectedRadio = 10;
   bool selectCustomRounds = false;
 
+  TextEditingController customRoundText = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
+
 
     return Scaffold(
       floatingActionButton: CustomBackButton(),
@@ -45,7 +49,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                       horizontal: 30,
                     ),
                     child: SingleChildScrollView(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -107,7 +110,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 });
 
                                 context.read<GameSettings>().setRounds20();
-                                print(context.read<GameSettings>().rounds);
                               },
                             ),
                             const SizedBox(
@@ -130,8 +132,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                     .read<GameSettings>()
                                     .setCustomRounds(30);
 
-                                print(selectedRadio);
-                                print(context.read<GameSettings>().rounds);
+
                               },
                               tileColor: ColorList().yellow(),
                               title: const Text("Set Custom Rounds"),
@@ -145,38 +146,49 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
                                 ),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    // enabledBorder: OutlineInputBorder(
-                                    //   borderSide: BorderSide(
-                                    //     width: 2,
-                                    //     color: ColorList().yellow(),
-                                    //   ),
-                                    //   borderRadius:
-                                    //       const BorderRadius.all(Radius.circular(20.0)),
-                                    // ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 2,
-                                        color: ColorList().yellow(),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 20.0),
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: customRoundText,
+                                    onSubmitted: (numValue) {
+                                      context
+                                          .read<GameSettings>()
+                                          .setCustomRounds(int.parse(numValue));
+                                    },
+                                    onChanged: (numValue) {
+                                      context
+                                          .read<GameSettings>()
+                                          .setCustomRounds(int.parse(numValue));
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: ColorList().yellow(),
+                                        ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20.0)),
                                       ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20.0)),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 2,
+                                      border: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0)),
                                       ),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0)),
                                     ),
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            CapsuleButton(
+                                buttonText: "Submit", buttonCallback: () {
+                              print("Selected Radio: $selectedRadio");
+                              print(context.read<GameSettings>().rounds);
+                            }),
                           ]),
                     ),
                   ),
