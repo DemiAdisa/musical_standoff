@@ -25,9 +25,11 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    // TODO: When the back button is pressed, the Provider rounds value does not reset, fix
+
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
-
 
     return Scaffold(
       floatingActionButton: CustomBackButton(),
@@ -65,6 +67,11 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedRadio = 10;
+
+                                  if (selectCustomRounds) {
+                                    selectCustomRounds = !selectCustomRounds;
+                                  }
+
                                 });
 
                                 context.read<GameSettings>().setRounds10();
@@ -86,6 +93,10 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedRadio = 15;
+
+                                  if (selectCustomRounds) {
+                                    selectCustomRounds = !selectCustomRounds;
+                                  }
                                 });
 
                                 context.read<GameSettings>().setRounds15();
@@ -107,6 +118,10 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedRadio = 20;
+
+                                  if (selectCustomRounds) {
+                                    selectCustomRounds = !selectCustomRounds;
+                                  }
                                 });
 
                                 context.read<GameSettings>().setRounds20();
@@ -128,11 +143,10 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 setState(() {
                                   selectCustomRounds = !selectCustomRounds;
                                 });
-                                context
-                                    .read<GameSettings>()
-                                    .setCustomRounds(30);
 
-
+                                if (!selectCustomRounds) {
+                                  context.read<GameSettings>().setRounds10();
+                                }
                               },
                               tileColor: ColorList().yellow(),
                               title: const Text("Set Custom Rounds"),
@@ -144,7 +158,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                               visible: selectCustomRounds,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
+                                  horizontal: 100,
                                 ),
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 20.0),
@@ -185,10 +199,11 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                               ),
                             ),
                             CapsuleButton(
-                                buttonText: "Submit", buttonCallback: () {
-                              print("Selected Radio: $selectedRadio");
-                              print(context.read<GameSettings>().rounds);
-                            }),
+                                buttonText: "Next",
+                                buttonCallback: () {
+                                  print("Selected Radio: $selectedRadio");
+                                  print(context.read<GameSettings>().rounds);
+                                }),
                           ]),
                     ),
                   ),
