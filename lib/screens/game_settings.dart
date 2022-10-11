@@ -31,12 +31,10 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
 
     selectedRadio = 10;
     context.read<GameSettings>().setRounds10();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
 
@@ -80,7 +78,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                   if (selectCustomRounds) {
                                     selectCustomRounds = !selectCustomRounds;
                                   }
-
                                 });
 
                                 context.read<GameSettings>().setRounds10();
@@ -179,7 +176,8 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                       onChanged: (numValue) {
                                         context
                                             .read<GameSettings>()
-                                            .setCustomRounds(int.parse(numValue));
+                                            .setCustomRounds(
+                                                int.parse(numValue));
                                       },
                                       decoration: InputDecoration(
                                         hintText: "Min: 10 | Max :40",
@@ -214,8 +212,18 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                             CapsuleButton(
                                 buttonText: "Next",
                                 buttonCallback: () {
-                                  print("Selected Radio: $selectedRadio");
-                                  print(context.read<GameSettings>().rounds);
+                                  if(selectCustomRounds){
+                                    if (_formKey.currentState!.validate()) {
+                                      Navigator.of(context)
+                                          .pushNamed("adding_players");
+                                    }
+
+                                  }else {
+
+                                  }
+
+                                  // print("Selected Radio: $selectedRadio");
+                                  // print(context.read<GameSettings>().rounds);
                                 }),
                           ]),
                     ),
