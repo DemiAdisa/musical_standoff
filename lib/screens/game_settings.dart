@@ -23,6 +23,8 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
 
   TextEditingController customRoundText = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -169,37 +171,41 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 ),
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 20.0),
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: customRoundText,
-                                    onSubmitted: (numValue) {
-                                      context
-                                          .read<GameSettings>()
-                                          .setCustomRounds(int.parse(numValue));
-                                    },
-                                    onChanged: (numValue) {
-                                      context
-                                          .read<GameSettings>()
-                                          .setCustomRounds(int.parse(numValue));
-                                    },
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
-                                          color: ColorList().yellow(),
+                                  child: Form(
+                                    child: TextFormField(
+                                      key: _formKey,
+                                      keyboardType: TextInputType.number,
+                                      controller: customRoundText,
+                                      onChanged: (numValue) {
+                                        context
+                                            .read<GameSettings>()
+                                            .setCustomRounds(int.parse(numValue));
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Min: 10 | Max :40",
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: ColorList().yellow(),
+                                          ),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20.0)),
                                         ),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(20.0)),
-                                      ),
-                                      border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
+                                        border: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0)),
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0)),
                                       ),
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Input Required Here!';
+                                        }
+                                      },
                                     ),
                                   ),
                                 ),
