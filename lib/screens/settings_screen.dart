@@ -3,11 +3,24 @@ import 'package:musical_standoff/dependencies/back_button.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 
-class SettingsScreen extends StatelessWidget {
-  late double? _deviceWidth;
-  late double? _deviceHeight;
+import '../dependencies/color_list.dart';
+
+class SettingsScreen extends StatefulWidget {
 
   SettingsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  late double? _deviceWidth;
+
+  late double? _deviceHeight;
+
+  bool bgm = true;
+
+  bool sfx = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +38,47 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 TextBox(boxText: "SETTINGS"),
                 SizedBox(
-                  height: _deviceHeight! * 0.5,
+                  height: _deviceHeight! * 0.45,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    CapsuleButton(buttonText: "Background Music Toggle", buttonCallback: () {}),
-                    CapsuleButton(buttonText: "Effects Toggle", buttonCallback: () {}),
-                  ],
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SwitchListTile.adaptive(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        value: bgm,
+                        onChanged: (value) {
+                          setState(() {
+                            bgm = !bgm;
+                          });
+                        },
+                        tileColor: ColorList().yellow(),
+                        title: const Text("Background Music"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SwitchListTile.adaptive(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        value: sfx,
+                        onChanged: (value) {
+                          setState(() {
+                            sfx = !sfx;
+                          });
+                        },
+                        tileColor: ColorList().yellow(),
+                        title: const Text("Sound Effects"),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

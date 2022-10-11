@@ -1,5 +1,6 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:musical_standoff/providers/game_players_provider.dart';
 import 'package:musical_standoff/providers/game_settings_provider.dart';
 import 'package:musical_standoff/screens/game_settings.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
@@ -12,7 +13,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GameSettings())
+        ChangeNotifierProvider(create: (_) => GameSettings()),
+        ChangeNotifierProvider(create: (_) => AddPlayers()),
 
       ],
       child: const MyApp(),
