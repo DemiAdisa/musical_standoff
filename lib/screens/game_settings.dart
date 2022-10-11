@@ -18,15 +18,22 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
 
   late double? _deviceHeight;
 
-  int selectedRadio = 10;
+  late int selectedRadio;
   bool selectCustomRounds = false;
 
   TextEditingController customRoundText = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
 
-    // TODO: When the back button is pressed, the Provider rounds value does not reset, fix
+    selectedRadio = 10;
+    context.read<GameSettings>().setRounds10();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
