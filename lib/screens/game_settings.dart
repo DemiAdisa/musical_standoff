@@ -27,6 +27,8 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
 
   @override
   void initState() {
+
+    //Set 10 as Default Number once page is loaded
     super.initState();
 
     selectedRadio = 10;
@@ -248,6 +250,8 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                           .showSnackBar(snackBar2);
                                     }
                                   } else {
+
+                                    // Custom Rounds is Off
                                     if (selectedRadio == 10) {
                                       context
                                           .read<GameSettings>()
@@ -272,8 +276,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                         context, "adding_players");
                                   }
 
-                                  // print("Selected Radio: $selectedRadio");
-                                  // print(context.read<GameSettings>().rounds);
                                 }),
                           ]),
                     ),
