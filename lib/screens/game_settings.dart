@@ -30,7 +30,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
     super.initState();
 
     selectedRadio = 10;
-    context.read<GameSettings>().setRounds10();
   }
 
   @override
@@ -149,10 +148,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 setState(() {
                                   selectCustomRounds = !selectCustomRounds;
                                 });
-
-                                if (!selectCustomRounds) {
-                                  context.read<GameSettings>().setRounds10();
-                                }
                               },
                               tileColor: ColorList().yellow(),
                               title: const Text("Set Custom Rounds"),
@@ -168,43 +163,30 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                                 ),
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 20.0),
-                                  child: Form(
-                                    child: TextFormField(
-                                      key: _formKey,
-                                      keyboardType: TextInputType.number,
-                                      controller: customRoundText,
-                                      onChanged: (numValue) {
-                                        context
-                                            .read<GameSettings>()
-                                            .setCustomRounds(
-                                                int.parse(numValue));
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: "Min: 10 | Max :40",
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 2,
-                                            color: ColorList().yellow(),
-                                          ),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20.0)),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      hintText: "Min: 10 | Max: 40",
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: ColorList().yellow(),
                                         ),
-                                        border: const OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 2,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20.0)),
-                                        ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20.0)),
                                       ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return 'Input Required Here!';
-                                        }
-                                      },
+                                      border: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0)),
+                                      ),
                                     ),
+                                    key: _formKey,
+                                    keyboardType: TextInputType.number,
+                                    controller: customRoundText,
                                   ),
                                 ),
                               ),
@@ -212,14 +194,82 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
                             CapsuleButton(
                                 buttonText: "Next",
                                 buttonCallback: () {
-                                  if(selectCustomRounds){
-                                    if (_formKey.currentState!.validate()) {
-                                      Navigator.of(context)
-                                          .pushNamed("adding_players");
+                                  //Check if Custom Rounds is On
+                                  if (selectCustomRounds) {
+                                    //Check if Custom Rounds Input is Not Empty
+                                    if (customRoundText.text.isNotEmpty) {
+                                      int numValue =
+                                          int.parse(customRoundText.text);
+
+                                      //Check if Input is in Range
+                                      if (numValue != 0 &&
+                                          numValue >= 10 &&
+                                          numValue <= 40) {
+                                        context
+                                            .read<GameSettings>()
+                                            .setCustomRounds(int.parse(
+                                                customRoundText.text));
+
+                                        Navigator.pushNamed(
+                                            context, "adding_players");
+
+                                        // print(context
+                                        //     .read<GameSettings>()
+                                        //     .rounds);
+                                      } else {
+
+                                        //Inputted Value is not within range
+                                        final snackBar1 = SnackBar(
+                                          content: Row(
+                                            children: const [
+                                              Icon(Icons.error_outline),
+                                              SizedBox(width: 10,),
+                                              Text('Invalid Input'),
+                                            ],
+                                          ),
+                                        );
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar1);
+                                      }
+                                    } else {
+                                      // Custom Rounds Input is Empty
+                                      final snackBar2 = SnackBar(
+                                        content: Row(
+                                          children: const [
+                                            Icon(Icons.error_outline),
+                                            SizedBox(width: 10,),
+                                            Text('Input a Value'),
+                                          ],
+                                        ),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar2);
+                                    }
+                                  } else {
+                                    if (selectedRadio == 10) {
+                                      context
+                                          .read<GameSettings>()
+                                          .setRounds10();
+                                      // print(
+                                      //     context.read<GameSettings>().rounds);
+                                    } else if (selectedRadio == 15) {
+                                      context
+                                          .read<GameSettings>()
+                                          .setRounds15();
+                                      // print(
+                                      //     context.read<GameSettings>().rounds);
+                                    } else if (selectedRadio == 20) {
+                                      context
+                                          .read<GameSettings>()
+                                          .setRounds20();
+                                      // print(
+                                      //     context.read<GameSettings>().rounds);
                                     }
 
-                                  }else {
-
+                                    Navigator.pushNamed(
+                                        context, "adding_players");
                                   }
 
                                   // print("Selected Radio: $selectedRadio");

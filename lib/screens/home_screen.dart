@@ -94,12 +94,22 @@ class _HomeScreenState extends State<HomeScreen>
                 Navigator.pushNamed(context, "game_settings");
               } else if (connectivityResult == ConnectivityResult.none) {
                 showDialog(
-                    context: context,
-                    builder: (context) => const AlertDialog(
-                          title: Text(
-                              "An internet connection is required to play this game. "
-                              "Please connect to the internet and try again"),
-                        ));
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Row(
+                      children: const [
+                        Icon(Icons.error),
+                        SizedBox(width: 10,),
+                        Text("Internet Required")
+                      ],
+                    ),
+                    content: const Text(
+                        "An internet connection is required to play this game. "
+                        "Please connect to the internet and try again"),
+                  ),
+                );
+                //   title:
+                // ));
               }
               // TODO 1: Review Futures and Fix the Linting Error
             },
