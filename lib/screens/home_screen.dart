@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:math';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 
@@ -16,6 +18,8 @@ class _HomeScreenState extends State<HomeScreen>
   late double? _deviceHeight;
 
   AnimationController? _rotatingController;
+
+  final Connectivity _connectivity = Connectivity();
 
   //We initialize state to begin the animation of the logo
   @override
@@ -71,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _homeButtons(BuildContext context) {
-
     // TODO: MainAxisAlignment.spaceEvenly is not functioning properly, fix
     //Using SizedBox in the meantime
     return Center(
@@ -81,19 +84,42 @@ class _HomeScreenState extends State<HomeScreen>
         children: <Widget>[
           CapsuleButton(
             buttonText: "Start a Game",
-            buttonCallback: () {
-              // TODO: CHeck for internet connection before pushing next screen
-              Navigator.pushNamed(context, "game_settings");
+            buttonCallback: () async {
+              ConnectivityResult connectivityResult =
+                  await _connectivity.checkConnectivity();
+
+              if (connectivityResult == ConnectivityResult.mobile ||
+                  connectivityResult == ConnectivityResult.wifi) {
+                // TODO: See TODO 1
+                Navigator.pushNamed(context, "game_settings");
+              } else if (connectivityResult == ConnectivityResult.none) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Row(
+                      children: const [
+                        Icon(Icons.error),
+                        SizedBox(width: 10,),
+                        Text("Internet Required")
+                      ],
+                    ),
+                    content: const Text(
+                        "An internet connection is required to play this game. "
+                        "Please connect to the internet and try again"),
+                  ),
+                );
+                //   title:
+                // ));
+              }
+              // TODO 1: Review Futures and Fix the Linting Error
             },
           ),
-          const SizedBox(height: 12,),
           CapsuleButton(
             buttonText: "How to Play",
             buttonCallback: () {
               Navigator.pushNamed(context, "instructions");
             },
           ),
-          const SizedBox(height: 12,),
           CapsuleButton(
               buttonText: "Settings",
               buttonCallback: () {
@@ -103,4 +129,18 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
   }
+
+// Future<Bool> checkForInternet() async{
+//   ConnectivityResult connectivityResult =
+//       await _connectivity.checkConnectivity();
+//
+//   Future<bool> isTrue = true as Future<bool>;
+//
+//   if (connectivityResult == ConnectivityResult.mobile ||
+//       connectivityResult == ConnectivityResult.wifi) {
+//     return ;
+//   } else if (connectivityResult == ConnectivityResult.none) {
+//     print("No connection");
+//   }
+// }
 }

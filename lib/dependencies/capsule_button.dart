@@ -22,26 +22,43 @@ class CapsuleButton extends StatelessWidget {
     _deviceWidth = MediaQuery.of(context).size.width;
     // _deviceHeight = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-      onTap: () {
+
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorList().yellow(),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50)),
+      ),
+      onPressed: () {
         buttonCallback();
       },
-      child: Container(
-        padding: EdgeInsets.all(_deviceWidth! * 0.03),
-        decoration: BoxDecoration(
-          color: ColorList().yellow(),
-          boxShadow: const [
-            BoxShadow(blurRadius: 15.0),
-          ],
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-        child: Text(
-          buttonText,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+      child: Text(
+        buttonText,
+        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
     );
+
+    // Original Button Implementation
+    // return GestureDetector(
+    //   onTap: () {
+    //     buttonCallback();
+    //   },
+    //   child: Container(
+    //     padding: EdgeInsets.all(_deviceWidth! * 0.03),
+    //     decoration: BoxDecoration(
+    //       color: ColorList().yellow(),
+    //       boxShadow: const [
+    //         BoxShadow(blurRadius: 15.0),
+    //       ],
+    //       borderRadius: const BorderRadius.all(
+    //         Radius.circular(20),
+    //       ),
+    //     ),
+    //     child: Text(
+    //       buttonText,
+    //       style: const TextStyle(fontWeight: FontWeight.bold),
+    //     ),
+    //   ),
+    // );
   }
 }

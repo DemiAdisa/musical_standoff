@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 
 class GameSettings with ChangeNotifier {
-  int _numOfRounds = 0;
+
+  //Default Number of Rounds is 10
+  int _numOfRounds = 10;
 
   int get rounds => _numOfRounds;
 
-  void _setRounds10() {
+  void setRounds10() {
     _numOfRounds = 10;
-    notifyListeners();
   }
 
-  void _setRounds15() {
+
+  void setRounds15() {
     _numOfRounds = 15;
-    notifyListeners();
   }
 
-  void _setRounds20() {
+  void setRounds20() {
     _numOfRounds = 20;
-    notifyListeners();
   }
 
-  void _decrementRounds() {
+  void setCustomRounds(int val) {
+    _numOfRounds = val;
+  }
+
+  void decrementRounds() {
     _numOfRounds--;
     notifyListeners();
   }
