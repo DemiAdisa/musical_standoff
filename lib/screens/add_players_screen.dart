@@ -2,22 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
+import 'package:musical_standoff/providers/add_players_provider.dart';
+import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
 import '../models/player.dart';
 
-class AddPlayersScreen extends StatelessWidget {
-  late double? _deviceWidth;
-  late double? _deviceHeight;
-
-  final List<Player> _items = [];
-  final GlobalKey<AnimatedListState> _key = GlobalKey();
-
+class AddPlayersScreen extends StatefulWidget {
   AddPlayersScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AddPlayersScreen> createState() => _AddPlayersScreenState();
+}
+
+class _AddPlayersScreenState extends State<AddPlayersScreen> {
+  late double? _deviceWidth;
+
+  late double? _deviceHeight;
+  late List<Player> items;
+
+  final GlobalKey<AnimatedListState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
+
+    items = context.read<AddPlayers>().listOfPlayers;
 
     return Scaffold(
       floatingActionButton: CustomBackButton(),
@@ -46,41 +56,14 @@ class AddPlayersScreen extends StatelessWidget {
                     right: 20.0,
                     bottom: 20.0,
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
+                  padding: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    bottom: 20.0,
                   ),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: AnimatedList(
-                    key: _key,
-                    initialItemCount: 0,
-                    padding: const EdgeInsets.all(10),
-                    itemBuilder: (context, index, animation) {
-                      return SizeTransition(
-                        key: UniqueKey(),
-                        sizeFactor: animation,
-                        child: Card(
-                          margin: const EdgeInsets.all(10.0),
-                          color: ColorList().yellow(),
-                          child: ListTile(
-                            title: Text(
-                              _items[index].playerName,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {
-                                removeFromList(index);
-                              },
-                              icon: const Icon(Icons.delete),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                  child: ListWheelScrollView(
+                    itemExtent: 250,
+                    children: _turnListToCards(items),
                   ),
                 ),
                 _bottomButtons(),
@@ -90,6 +73,57 @@ class AddPlayersScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _placeHolderCard(String textVal) {
+    return Card(
+      margin: const EdgeInsets.all(10.0),
+      color: ColorList().yellow(),
+      child: ListTile(
+        title: Text(
+          textVal,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _turnListToCards(List<Player> localItems) {
+    List<Widget> convertedList = [];
+
+    if (localItems.isEmpty) {
+      return [
+        _placeHolderCard("No Players Added Yet"),
+        _placeHolderCard("Please Click Add Player Button"),
+        _placeHolderCard("To add the players"),
+        _placeHolderCard("for this Game Session")
+      ];
+    }else {
+      for (int i = 0; i < localItems.length; i++) {
+        convertedList.add(
+          Card(
+            margin: const EdgeInsets.all(10.0),
+            color: ColorList().yellow(),
+            child: ListTile(
+              title: Text(
+                localItems[i].playerName,
+                style: const TextStyle(fontSize: 20),
+              ),
+              trailing: IconButton(
+                onPressed: () {
+                  removeFromList(items[i]);
+                },
+                icon: const Icon(Icons.delete),
+              ),
+            ),
+          ),
+        );
+      }
+
+      return convertedList;
+    }
+
+
   }
 
   Widget _bottomButtons() {
@@ -111,35 +145,11 @@ class AddPlayersScreen extends StatelessWidget {
   }
 
   void addToList() {
-    _items.insert(0, Player(playerName: "Item ${_items.length + 1}"));
-
-    _key.currentState!.insertItem(
-      0,
-      duration: const Duration(milliseconds: 350),
-    );
+    context.read<AddPlayers>().addPlayer(Player(playerName: "Item ${items.length + 1}"));
+    print(items);
   }
 
-  void removeFromList(int index) {
-    _key.currentState!.removeItem(
-      index,
-      (context, animation) {
-        return SizeTransition(
-          sizeFactor: animation,
-          child: const Card(
-            margin: EdgeInsets.all(10),
-            color: Colors.red,
-            child: ListTile(
-              title: Text(
-                "Removed",
-                style: TextStyle(fontSize: 20, color: Colors.white,),
-              ),
-            ),
-          ),
-        );
-      },
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _items.removeAt(index);
+  void removeFromList(Player obj) {
+    context.read<AddPlayers>().removePlayer(obj);
   }
 }
