@@ -50,7 +50,7 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
               children: [
                 TextBox(boxText: "GAME SETUP"),
                 SizedBox(
-                  height: _deviceHeight! * 0.1,
+                  height: _deviceHeight! * 0.07,
                 ),
                 Expanded(
                   child: Container(
