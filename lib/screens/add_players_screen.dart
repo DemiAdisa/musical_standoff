@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
+import 'package:musical_standoff/providers/add_players_provider.dart';
+import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
 import '../models/player.dart';
 
-class AddPlayersScreen extends StatelessWidget {
+class AddPlayersScreen extends StatefulWidget {
+  AddPlayersScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AddPlayersScreen> createState() => _AddPlayersScreenState();
+}
+
+class _AddPlayersScreenState extends State<AddPlayersScreen> {
   late double? _deviceWidth;
+
   late double? _deviceHeight;
 
   final List<Player> _items = [];
+
   final GlobalKey<AnimatedListState> _key = GlobalKey();
 
-  AddPlayersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +30,7 @@ class AddPlayersScreen extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false, //Prevent Dialog from Causing Overflow Error
       floatingActionButton: CustomBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
@@ -46,41 +57,45 @@ class AddPlayersScreen extends StatelessWidget {
                     right: 20.0,
                     bottom: 20.0,
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
+                  padding: const EdgeInsets.all(
+                    20,
                   ),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+                      Radius.circular(30),
                     ),
                   ),
-                  child: AnimatedList(
-                    key: _key,
-                    initialItemCount: 0,
-                    padding: const EdgeInsets.all(10),
-                    itemBuilder: (context, index, animation) {
-                      return SizeTransition(
-                        key: UniqueKey(),
-                        sizeFactor: animation,
-                        child: Card(
-                          margin: const EdgeInsets.all(10.0),
-                          color: ColorList().yellow(),
-                          child: ListTile(
-                            title: Text(
-                              _items[index].playerName,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {
-                                removeFromList(index);
-                              },
-                              icon: const Icon(Icons.delete),
+                  child: Scrollbar(
+                    trackVisibility: true,
+                    thumbVisibility: true,
+                    child: AnimatedList(
+                      key: _key,
+                      initialItemCount: 0,
+                      padding: const EdgeInsets.all(10),
+                      itemBuilder: (context, index, animation) {
+                        return SizeTransition(
+                          key: UniqueKey(),
+                          sizeFactor: animation,
+                          child: Card(
+                            margin: const EdgeInsets.all(10.0),
+                            color: ColorList().yellow(),
+                            child: ListTile(
+                              title: Text(
+                                _items[index].playerName,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  removeFromList(index);
+                                },
+                                icon: const Icon(Icons.delete),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 _bottomButtons(),
@@ -100,12 +115,86 @@ class AddPlayersScreen extends StatelessWidget {
         CapsuleButton(
             buttonText: "Add Player",
             buttonCallback: () {
-              addToList();
+              if (_items.length < 10) {
+                showDialog(
+                  context: context,
+                  builder: (context) => SimpleDialog(
+                    title: Text("What is the Players Name?"),
+                    children: [
+                      TextField(),
+                      ElevatedButton(onPressed: (){
+                        addToList();
+                      }, child: Text("ADD"))
+                    ],
+                  )
+                );
+
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Row(
+                      children: const [
+                        Icon(Icons.error),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Max Number of Players!")
+                      ],
+                    ),
+                    content: const Text(
+                        "You have added the maximum number of permitted players."),
+                  ),
+                );
+
+              }
             }),
         const SizedBox(
           width: 50,
         ),
-        CapsuleButton(buttonText: "Start Game", buttonCallback: () {})
+        CapsuleButton(
+            buttonText: "Start Game",
+            buttonCallback: () {
+              context.read<AddPlayers>().fillList(_items);
+
+              //Make sure user does not want to add more players
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Row(
+                    children: const [
+                      Icon(Icons.crisis_alert),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Confirm Selection")
+                    ],
+                  ),
+                  content: const Text(
+                      "Game Settings and Players cannot be edited after."),
+                  actions: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('CANCEL'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {
+
+                      },
+                      child: const Text('ACCEPT'),
+                    ),
+                  ],
+                ),
+              );
+            })
       ],
     );
   }
@@ -115,14 +204,14 @@ class AddPlayersScreen extends StatelessWidget {
 
     _key.currentState!.insertItem(
       0,
-      duration: const Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 300),
     );
   }
 
   void removeFromList(int index) {
     _key.currentState!.removeItem(
       index,
-          (context, animation) {
+      (context, animation) {
         return SizeTransition(
           sizeFactor: animation,
           child: const Card(
@@ -131,13 +220,16 @@ class AddPlayersScreen extends StatelessWidget {
             child: ListTile(
               title: Text(
                 "Removed",
-                style: TextStyle(fontSize: 20, color: Colors.white,),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
         );
       },
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     _items.removeAt(index);
