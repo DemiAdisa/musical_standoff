@@ -130,12 +130,10 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                           actions: [
                             TextButton(
                                 onPressed: () {
-                                  if(!(pName.text == "")){
+                                  if (!(pName.text == "")) {
                                     addToList(pName.text);
                                     Navigator.of(context).pop();
-
                                   }
-
                                 },
                                 child: const Text("SUBMIT"))
                           ],
@@ -157,7 +155,6 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                         "You have added the maximum number of permitted players."),
                   ),
                 );
-
               }
             }),
         const SizedBox(
@@ -166,43 +163,62 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
         CapsuleButton(
             buttonText: "Start Game",
             buttonCallback: () {
-              context.read<AddPlayers>().fillList(_items);
+              if (_items.isNotEmpty) {
+                context.read<AddPlayers>().fillList(_items);
 
-              //Make sure user does not want to add more players
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Row(
-                    children: const [
-                      Icon(Icons.crisis_alert),
-                      SizedBox(
-                        width: 10,
+                //Make sure user does not want to add more players
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Row(
+                      children: const [
+                        Icon(Icons.crisis_alert),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Confirm Selection")
+                      ],
+                    ),
+                    content: const Text(
+                        "Game Settings and Players cannot be edited after."),
+                    actions: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('CANCEL'),
                       ),
-                      Text("Confirm Selection")
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                        onPressed: () {},
+                        child: const Text('ACCEPT'),
+                      ),
                     ],
                   ),
-                  content: const Text(
-                      "Game Settings and Players cannot be edited after."),
-                  actions: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('CANCEL'),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Row(
+                      children: const [
+                        Icon(Icons.error),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("No Players Added")
+                      ],
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                      ),
-                      onPressed: () {},
-                      child: const Text('ACCEPT'),
-                    ),
-                  ],
-                ),
-              );
+                    content: const Text(
+                        "No players detected. Sorry you need friends to play 😁"),
+                  ),
+                );
+              }
             })
       ],
     );
