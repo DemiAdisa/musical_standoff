@@ -5,25 +5,29 @@ import '../models/player.dart';
 class AddPlayers with ChangeNotifier {
 
 
-  List<Player> listOfPlayers = [];
+  List<Player> _listOfPlayers = [];
 
   void addPlayer(Player pObj) {
-    listOfPlayers.add(pObj);
+    _listOfPlayers.add(pObj);
     notifyListeners();
   }
 
+  void fillList(List<Player> pObjList) {
+    _listOfPlayers = pObjList;
+  }
+
   void removePlayer(Player playerObj){
-    listOfPlayers.remove(playerObj);
+    _listOfPlayers.remove(playerObj);
     notifyListeners();
   }
 
   void resetList()
   {
-    listOfPlayers = [];
+    _listOfPlayers = [];
     notifyListeners();
   }
 
   List<Player> getListOfPlayers() {
-    return listOfPlayers;
+    return _listOfPlayers;
   }
 }
