@@ -23,14 +23,14 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
 
   final GlobalKey<AnimatedListState> _key = GlobalKey();
 
-
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, //Prevent Dialog from Causing Overflow Error
+      resizeToAvoidBottomInset: false,
+      //Prevent Dialog from Causing Overflow Error
       floatingActionButton: CustomBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
@@ -116,19 +116,30 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
             buttonText: "Add Player",
             buttonCallback: () {
               if (_items.length < 10) {
+                TextEditingController pName = TextEditingController();
                 showDialog(
-                  context: context,
-                  builder: (context) => SimpleDialog(
-                    title: Text("What is the Players Name?"),
-                    children: [
-                      TextField(),
-                      ElevatedButton(onPressed: (){
-                        addToList();
-                      }, child: Text("ADD"))
-                    ],
-                  )
-                );
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text("Players Name?"),
+                          content: TextField(
+                            controller: pName,
+                            decoration: const InputDecoration(
+                              hintText: "Input Players Name",
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  if(!(pName.text == "")){
+                                    addToList(pName.text);
+                                    Navigator.of(context).pop();
 
+                                  }
+
+                                },
+                                child: const Text("SUBMIT"))
+                          ],
+                        ));
               } else {
                 showDialog(
                   context: context,
@@ -186,9 +197,7 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                       ),
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: const Text('ACCEPT'),
                     ),
                   ],
@@ -199,8 +208,8 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
     );
   }
 
-  void addToList() {
-    _items.insert(0, Player(playerName: "Item ${_items.length + 1}"));
+  void addToList(String playerName) {
+    _items.insert(0, Player(playerName: playerName));
 
     _key.currentState!.insertItem(
       0,
