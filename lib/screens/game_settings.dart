@@ -6,6 +6,8 @@ import '../dependencies/back_button.dart';
 import '../dependencies/color_list.dart';
 import '../providers/game_settings_provider.dart';
 
+
+/// This is the implementation of the Screen that Aprovides a game sessions settings
 class GameSettingsScreen extends StatefulWidget {
   GameSettingsScreen({Key? key}) : super(key: key);
 

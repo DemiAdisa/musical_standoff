@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
 import '../models/player.dart';
 
+
+/// This is the implementation of the Screen that Adds Players to a Game Session
 class AddPlayersScreen extends StatefulWidget {
   AddPlayersScreen({Key? key}) : super(key: key);
 

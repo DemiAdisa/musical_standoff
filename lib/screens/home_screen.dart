@@ -1,10 +1,11 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 
+
+///This is the home screen
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 

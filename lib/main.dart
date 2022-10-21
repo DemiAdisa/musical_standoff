@@ -21,12 +21,10 @@ void main() {
       child: const MyApp(),
     ),
   );
-  //
-  // runApp(
-  //   const MyApp(),
-  // );
 }
 
+
+//Application Entry-point
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

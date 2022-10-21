@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// This is a provider class to handle the Game Session Settings (Rounds etc.)
 class GameSettings with ChangeNotifier {
 
   //Default Number of Rounds is 10
