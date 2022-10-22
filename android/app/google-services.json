@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "659886747641",
+    "project_id": "musical-standoff",
+    "storage_bucket": "musical-standoff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659886747641:android:3f177ac939803dee6d5728",
+        "android_client_info": {
+          "package_name": "com.example.musical_standoff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659886747641-q9uu7rlfg5q2kj8upqb68vkkjgn9bdti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJuy4cIOXf90rcectOBgO4LCxTZ6Bua2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659886747641-q9uu7rlfg5q2kj8upqb68vkkjgn9bdti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

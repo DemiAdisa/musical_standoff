@@ -17,7 +17,6 @@ class GameSettingsScreen extends StatefulWidget {
 
 class _GameSettingsScreenState extends State<GameSettingsScreen> {
   late double? _deviceWidth;
-
   late double? _deviceHeight;
 
   late int selectedRadio;

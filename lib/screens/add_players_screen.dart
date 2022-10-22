@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
 import '../models/player.dart';
 
-
 /// This is the implementation of the Screen that Adds Players to a Game Session
 class AddPlayersScreen extends StatefulWidget {
   AddPlayersScreen({Key? key}) : super(key: key);
@@ -18,7 +17,6 @@ class AddPlayersScreen extends StatefulWidget {
 
 class _AddPlayersScreenState extends State<AddPlayersScreen> {
   late double? _deviceWidth;
-
   late double? _deviceHeight;
 
   final List<Player> _items = [];
@@ -27,12 +25,13 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Get the Width and Height of the Device
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      //Prevent Add Player Dialog from Causing Overflow Error
       resizeToAvoidBottomInset: false,
-      //Prevent Dialog from Causing Overflow Error
       floatingActionButton: CustomBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
@@ -45,13 +44,6 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                 SizedBox(
                   height: _deviceHeight! * 0.07,
                 ),
-                // IconButton(
-                //   iconSize: 35.0,
-                //   highlightColor: ColorList().yellow(),
-                //   onPressed: () {},
-                //   color: ColorList().yellow(),
-                //   icon: const Icon(Icons.add_circle_outline),
-                // ),
                 Container(
                   height: _deviceHeight! * 1.1,
                   margin: const EdgeInsets.only(
@@ -109,6 +101,7 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
     );
   }
 
+  //This is a row of buttons for Adding a Player and Starting the Game
   Widget _bottomButtons() {
     return Row(
       mainAxisSize: MainAxisSize.max,
@@ -226,6 +219,8 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
     );
   }
 
+
+  // Adds a player to the list
   void addToList(String playerName) {
     _items.insert(0, Player(playerName: playerName));
 
@@ -235,6 +230,7 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
     );
   }
 
+  // Removes a player from the list
   void removeFromList(int index) {
     _key.currentState!.removeItem(
       index,
