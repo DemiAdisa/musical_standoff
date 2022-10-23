@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
           "instructions": (context) => InstructionsScreen(),
           "game_settings": (context) => GameSettingsScreen(),
           "adding_players": (context) => AddPlayersScreen(),
+          "game": (context) => AddPlayersScreen(),
 
         });
   }

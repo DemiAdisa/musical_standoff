@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
+import 'package:musical_standoff/dependencies/f_card.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 import 'package:provider/provider.dart';
 import '../dependencies/back_button.dart';
@@ -44,7 +45,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
       floatingActionButton: CustomBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
-        child: Center(
           child: Padding(
             padding: EdgeInsets.only(top: _deviceHeight! * 0.17),
             child: Column(
@@ -285,7 +285,6 @@ class _GameSettingsScreenState extends State<GameSettingsScreen> {
               ],
             ),
           ),
-        ),
       ),
     );
   }

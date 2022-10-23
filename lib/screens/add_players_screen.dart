@@ -190,7 +190,9 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "game");
+                        },
                         child: const Text('ACCEPT'),
                       ),
                     ],
@@ -206,7 +208,7 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text("No Players Added")
+                        Text("No players added!")
                       ],
                     ),
                     content: const Text(
