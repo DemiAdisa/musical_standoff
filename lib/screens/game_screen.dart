@@ -177,7 +177,52 @@ class _GameState extends State<Game> {
             );
           },
         ),
-        CapsuleButton(buttonText: "Next Round", buttonCallback: () {}),
+        CapsuleButton(
+          buttonText: "Next Round",
+          buttonCallback: () {},
+        ),
+        CapsuleButton(
+          buttonText: "End Game",
+          buttonCallback: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Row(
+                  children: const [
+                    Icon(Icons.crisis_alert),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("End Game?")
+                  ],
+                ),
+                content: const Text(
+                    "You will lose all your current selections and progress."),
+                actions: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('CANCEL'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    onPressed: () {
+                      // TODO : Show game results first and reset all parameters (Rounds and Players List)
+                      Navigator.pushNamed(context, "/");
+                    },
+                    child: const Text('END GAME'),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ],
     );
   }
