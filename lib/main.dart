@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:musical_standoff/providers/add_players_provider.dart';
 import 'package:musical_standoff/providers/game_settings_provider.dart';
 import 'package:musical_standoff/screens/add_players_screen.dart';
+import 'package:musical_standoff/screens/game_screen.dart';
 import 'package:musical_standoff/screens/game_settings.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
 import 'package:musical_standoff/screens/instructions.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           "instructions": (context) => InstructionsScreen(),
           "game_settings": (context) => GameSettingsScreen(),
           "adding_players": (context) => AddPlayersScreen(),
-          "game": (context) => AddPlayersScreen(),
+          "game": (context) => Game(),
 
         });
   }
