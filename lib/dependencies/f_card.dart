@@ -36,6 +36,7 @@ class FCard extends StatelessWidget {
         child: Center(
             child: Text(
           determineDifficulty(difficultyLvl),
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 25,
@@ -54,6 +55,7 @@ class FCard extends StatelessWidget {
         child: Center(
             child: Text(
           backValue,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 17,
             color: Colors.white,

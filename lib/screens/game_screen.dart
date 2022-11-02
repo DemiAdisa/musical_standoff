@@ -20,6 +20,14 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   late double? _deviceWidth;
   late double? _deviceHeight;
+  late Future<void> dataFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dataFuture = context.read<Gameplay>().getGameplayData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +38,41 @@ class _GameState extends State<Game> {
       onWillPop: () async => false,
       child: Scaffold(
         body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _genreBox(),
-                _roundBox(),
-                _filterWheel(),
-                _playerWheel(),
-                _buttonRow(),
-              ],
-            ),
-          ),
+          child: FutureBuilder<void>(
+              future: dataFuture,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: ColorList().yellow(),
+                          )
+                        ],
+                      ),
+                    );
+                  case ConnectionState.done:
+                  default:
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _genreBox(),
+                          _roundBox(),
+                          _filterWheel(),
+                          _playerWheel(),
+                          _buttonRow(),
+                        ],
+                      ),
+                    );
+                }
+              }),
         ),
       ),
     );
@@ -62,7 +91,7 @@ class _GameState extends State<Game> {
         ),
       ),
       child: Text(
-        "GENRE",
+        context.watch<Gameplay>().genreName,
         style: TextStyle(fontSize: 28.0),
       ),
     );
@@ -102,15 +131,24 @@ class _GameState extends State<Game> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  FCard(difficultyLvl: 1, backValue: "1ss"),
+                  FCard(
+                    difficultyLvl: 1,
+                    backValue: context.watch<Gameplay>().getEasyFilter(),
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
-                  FCard(difficultyLvl: 2, backValue: "2ss"),
+                  FCard(
+                    difficultyLvl: 2,
+                    backValue: context.watch<Gameplay>().getMediumFilter(),
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
-                  FCard(difficultyLvl: 3, backValue: "3ss"),
+                  FCard(
+                    difficultyLvl: 3,
+                    backValue: context.watch<Gameplay>().getHardFilter(),
+                  ),
                 ],
               ),
             ),
@@ -162,7 +200,7 @@ class _GameState extends State<Game> {
               builder: (context) => AlertDialog(
                 title: const Text("Genre Description"),
                 content: Text(
-                  "Description Here",
+                  context.watch<Gameplay>().genreDesc,
                 ),
                 actions: [
                   ElevatedButton(
@@ -183,6 +221,9 @@ class _GameState extends State<Game> {
           buttonText: "Next Round",
           buttonCallback: () {
             context.read<GameSettings>().advanceRounds();
+            setState(() {
+              dataFuture = context.read<Gameplay>().getGameplayData();
+            });
           },
         ),
         CapsuleButton(
@@ -260,6 +301,7 @@ class _GameState extends State<Game> {
                 children: [
                   Text(
                     p.getName,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -267,6 +309,7 @@ class _GameState extends State<Game> {
                   ),
                   const Text(
                     "Tap to Reveal Player's Score",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                     ),
@@ -286,6 +329,7 @@ class _GameState extends State<Game> {
             child: Center(
                 child: Text(
               "${p.getName} currently has ${p.getScore} points",
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 18,
               ),
