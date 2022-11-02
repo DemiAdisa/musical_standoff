@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/f_card.dart';
 import 'package:musical_standoff/providers/add_players_provider.dart';
+import 'package:musical_standoff/providers/game_settings_provider.dart';
+import 'package:musical_standoff/providers/gameplay_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../dependencies/color_list.dart';
@@ -61,14 +63,14 @@ class _GameState extends State<Game> {
       ),
       child: Text(
         "GENRE",
-        style: TextStyle(fontSize: 30.0),
+        style: TextStyle(fontSize: 28.0),
       ),
     );
   }
 
   Widget _roundBox() {
     return Text(
-      "Round 1",
+      "Round ${context.watch<GameSettings>().startRound}/${context.watch<GameSettings>().displayRound}",
       style: TextStyle(
         fontSize: 25,
         color: Colors.transparent,
@@ -138,7 +140,7 @@ class _GameState extends State<Game> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: _playerObjToCard(
-                    context.read<AddPlayers>().getListOfPlayers()),
+                    context.watch<AddPlayers>().getListOfPlayers()),
               ),
             ),
           ),
@@ -179,7 +181,9 @@ class _GameState extends State<Game> {
         ),
         CapsuleButton(
           buttonText: "Next Round",
-          buttonCallback: () {},
+          buttonCallback: () {
+            context.read<GameSettings>().advanceRounds();
+          },
         ),
         CapsuleButton(
           buttonText: "End Game",
@@ -214,6 +218,8 @@ class _GameState extends State<Game> {
                     ),
                     onPressed: () {
                       // TODO : Show game results first and reset all parameters (Rounds and Players List)
+                      context.read<AddPlayers>().resetList();
+                      context.read<GameSettings>().resetRounds();
                       Navigator.pushNamed(context, "/");
                     },
                     child: const Text('END GAME'),
@@ -247,17 +253,43 @@ class _GameState extends State<Game> {
                 Radius.circular(15),
               ),
             ),
-            child: Center(child: Text(p.getName)),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    p.getName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    "Tap to Reveal Player's Score",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           back: Container(
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: ColorList().yellow(),
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
             ),
-            child:
-                Center(child: Text("You currently have ${p.getScore} points")),
+            child: Center(
+                child: Text(
+              "${p.getName} currently has ${p.getScore} points",
+              style: const TextStyle(
+                fontSize: 18,
+              ),
+            )),
           ),
         ),
       ));

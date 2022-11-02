@@ -45,7 +45,7 @@ class _AddPlayersScreenState extends State<AddPlayersScreen> {
                   height: _deviceHeight! * 0.07,
                 ),
                 Container(
-                  height: _deviceHeight! * 1.1,
+                  height: _deviceHeight! * 1.3,
                   margin: const EdgeInsets.only(
                     left: 20.0,
                     right: 20.0,
