@@ -17,4 +17,12 @@ class Player {
   void incrementScoreBy2() {
     playerScore += 2;
   }
+
+  void incrementScoreBy3() {
+    playerScore += 3;
+  }
+
+  void incrementScoreBy4() {
+    playerScore += 4;
+  }
 }

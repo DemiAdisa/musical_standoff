@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 /// This is a provider class to handle the Game Session Settings (Rounds etc.)
 class GameSettings with ChangeNotifier {
-
   //Default Number of Rounds is 10
   int _numOfRounds = 10;
 
@@ -13,14 +12,15 @@ class GameSettings with ChangeNotifier {
   int _startingRound = 1;
 
   int get rounds => _numOfRounds;
+
   int get startRound => _startingRound;
+
   int get displayRound => _displayRound;
 
   void setRounds10() {
     _numOfRounds = 10;
     _displayRound = 10;
   }
-
 
   void setRounds15() {
     _numOfRounds = 15;
@@ -34,6 +34,7 @@ class GameSettings with ChangeNotifier {
 
   void setCustomRounds(int val) {
     _numOfRounds = val;
+    _displayRound = val;
   }
 
   void resetRounds() {
@@ -49,4 +50,11 @@ class GameSettings with ChangeNotifier {
     notifyListeners();
   }
 
+  bool checkRounds() {
+    if (_numOfRounds == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

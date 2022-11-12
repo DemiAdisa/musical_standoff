@@ -4,6 +4,7 @@ import 'package:musical_standoff/providers/add_players_provider.dart';
 import 'package:musical_standoff/providers/game_settings_provider.dart';
 import 'package:musical_standoff/providers/gameplay_provider.dart';
 import 'package:musical_standoff/screens/add_players_screen.dart';
+import 'package:musical_standoff/screens/game_mode.dart';
 import 'package:musical_standoff/screens/game_screen.dart';
 import 'package:musical_standoff/screens/game_settings.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
@@ -40,13 +41,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Musical Standoff',
         theme: ThemeData(
-          scaffoldBackgroundColor: ColorList().midnight(),
+          scaffoldBackgroundColor: Colors.black12,
         ),
         initialRoute: "/",
         routes: {
           "/": (context) => HomeScreen(),
           "settings": (context) => SettingsScreen(),
           "instructions": (context) => InstructionsScreen(),
+          "game_modes": (context) => GameModeScreen(),
           "game_settings": (context) => GameSettingsScreen(),
           "adding_players": (context) => AddPlayersScreen(),
           "game": (context) => Game(),

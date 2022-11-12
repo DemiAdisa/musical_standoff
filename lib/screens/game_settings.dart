@@ -3,7 +3,7 @@ import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/f_card.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 import 'package:provider/provider.dart';
-import '../dependencies/back_button.dart';
+import '../dependencies/custom_back_button.dart';
 import '../dependencies/color_list.dart';
 import '../providers/game_settings_provider.dart';
 

@@ -4,7 +4,7 @@ import 'package:musical_standoff/dependencies/color_list.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 import 'package:musical_standoff/providers/add_players_provider.dart';
 import 'package:provider/provider.dart';
-import '../dependencies/back_button.dart';
+import '../dependencies/custom_back_button.dart';
 import '../models/player.dart';
 
 /// This is the implementation of the Screen that Adds Players to a Game Session

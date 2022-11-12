@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:musical_standoff/dependencies/regular_back_button.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
-import '../dependencies/back_button.dart';
+import '../dependencies/custom_back_button.dart';
 
 class InstructionsScreen extends StatelessWidget {
 
@@ -16,7 +17,7 @@ class InstructionsScreen extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      floatingActionButton: CustomBackButton(),
+      floatingActionButton: RegularBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
         child: Center(

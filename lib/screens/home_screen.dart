@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen>
               if (connectivityResult == ConnectivityResult.mobile ||
                   connectivityResult == ConnectivityResult.wifi) {
                 // TODO: See TODO 1
-                Navigator.pushNamed(context, "game_settings");
+                Navigator.pushNamed(context, "game_modes");
               } else if (connectivityResult == ConnectivityResult.none) {
                 showDialog(
                   context: context,

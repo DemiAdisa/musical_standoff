@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:musical_standoff/dependencies/back_button.dart';
+import 'package:musical_standoff/dependencies/custom_back_button.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/text_box.dart';
 
 import '../dependencies/color_list.dart';
+import '../dependencies/regular_back_button.dart';
 
 class SettingsScreen extends StatefulWidget {
 
@@ -28,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      floatingActionButton: CustomBackButton(),
+      floatingActionButton: RegularBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
         child: Center(
