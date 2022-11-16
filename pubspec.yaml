@@ -52,6 +52,7 @@ dependencies:
 
   # Animated Flip Card
   flip_card: ^0.6.0
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/Logo_Files/png/logo-color-circle.png
+    - assets/animations/astronaut-and-music.json
+    - assets/animations/listening-to-music.json
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

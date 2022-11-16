@@ -24,7 +24,8 @@ class Gameplay with ChangeNotifier {
     DocumentSnapshot docSnap = await db.doc("$randomSelector").get();
     _gameplayMap = docSnap.data() as Map;
 
-    //Assign
+    //Delay for 5sec so loading animation can play
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   String get genreName => _gameplayMap["genreName"];

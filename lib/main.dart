@@ -41,8 +41,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Musical Standoff',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.black12,
+          scaffoldBackgroundColor: ColorList().midnight(),
         ),
+        debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
           "/": (context) => HomeScreen(),

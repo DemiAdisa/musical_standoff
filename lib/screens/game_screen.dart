@@ -1,5 +1,6 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 import 'package:musical_standoff/dependencies/f_card.dart';
 import 'package:musical_standoff/providers/add_players_provider.dart';
@@ -48,16 +49,17 @@ class _GameState extends State<Game> {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
                     return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(
-                            color: ColorList().yellow(),
-                          )
-                        ],
-                      ),
+                      child: Lottie.asset("assets/animations/astronaut-and-music.json"),
+                      // child: Column(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   mainAxisSize: MainAxisSize.max,
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   children: [
+                      //     CircularProgressIndicator(
+                      //       color: ColorList().yellow(),
+                      //     )
+                      //   ],
+                      // ),
                     );
                   case ConnectionState.done:
                   default:

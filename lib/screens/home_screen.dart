@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:musical_standoff/dependencies/capsule_button.dart';
 
 
@@ -22,22 +23,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   final Connectivity _connectivity = Connectivity();
 
-  //We initialize state to begin the animation of the logo
-  @override
-  void initState() {
-    super.initState();
-
-    _rotatingController = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        seconds: 10,
-      ),
-    );
-
-    //Puts the rotation Animation in a Looping Manner
-    _rotatingController!.repeat();
-  }
-
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -52,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen>
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _imageContainer(),
+              _animatedHead(),
               _homeButtons(context),
             ],
           ),
@@ -61,21 +46,8 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _imageContainer() {
-    return AnimatedBuilder(
-      animation: _rotatingController!.view,
-      builder: (context, child) {
-        return Transform.rotate(
-          angle: _rotatingController!.value * 2 * pi,
-          child: child,
-        );
-      },
-      child: SizedBox(
-        width: _deviceWidth! * 0.6,
-        height: _deviceHeight! * 0.6,
-        child: Image.asset("assets/Logo_Files/png/logo-color-circle.png"),
-      ),
-    );
+  Widget _animatedHead() {
+    return Lottie.asset("assets/animations/listening-to-music.json");
   }
 
   Widget _homeButtons(BuildContext context) {

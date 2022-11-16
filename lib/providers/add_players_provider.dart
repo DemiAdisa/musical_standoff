@@ -26,11 +26,13 @@ class AddPlayers with ChangeNotifier {
   }
 
   List<Player> getListOfPlayers() {
-    // //Sort List by Player Score
-    // _listOfPlayers.sort((a, b) => a.getScore.compareTo(b.getScore));
+    //Sort List by Player Score
+    _listOfPlayers.sort((a, b) => a.getScore.compareTo(b.getScore));
+
+    final reversedList = _listOfPlayers.reversed.toList();
 
     //Return List
-    return _listOfPlayers;
+    return reversedList;
   }
 
   void updatePlayerScore({required String pName, required int filterType}) {
