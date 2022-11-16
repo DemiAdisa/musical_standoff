@@ -14,12 +14,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> {
   late double? _deviceWidth;
   late double? _deviceHeight;
-
-  AnimationController? _rotatingController;
 
   final Connectivity _connectivity = Connectivity();
 
@@ -96,11 +93,11 @@ class _HomeScreenState extends State<HomeScreen>
               Navigator.pushNamed(context, "instructions");
             },
           ),
-          CapsuleButton(
-              buttonText: "Settings",
-              buttonCallback: () {
-                Navigator.pushNamed(context, "settings");
-              })
+          // CapsuleButton(
+          //     buttonText: "Settings",
+          //     buttonCallback: () {
+          //       Navigator.pushNamed(context, "settings");
+          //     })
         ],
       ),
     );

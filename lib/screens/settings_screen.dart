@@ -29,18 +29,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      floatingActionButton: RegularBackButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      // floatingActionButton: RegularBackButton(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(top: _deviceHeight! * 0.17),
             child: Column(
               children: [
-                TextBox(boxText: "SETTINGS"),
-                SizedBox(
-                  height: _deviceHeight! * 0.45,
-                ),
+                // TextBox(boxText: "SETTINGS"),
+                // SizedBox(
+                //   height: _deviceHeight! * 0.45,
+                // ),
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 30.0,

@@ -13,6 +13,8 @@ import 'package:musical_standoff/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 
+import 'dependencies/hidden_drawer.dart';
+
 Future main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
-          "/": (context) => HomeScreen(),
+          "/": (context) => HiddenDrawer(),
           "settings": (context) => SettingsScreen(),
           "instructions": (context) => InstructionsScreen(),
           "game_modes": (context) => GameModeScreen(),
