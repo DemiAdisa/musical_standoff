@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
+import 'package:musical_standoff/screens/leaderboard.dart';
 import 'package:musical_standoff/screens/settings_screen.dart';
+import 'package:musical_standoff/screens/user_profile.dart';
 
 import '../screens/home_screen.dart';
 
@@ -34,10 +36,20 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
         selectedStyle: myTextStyle,
       ), HomeScreen()),
       ScreenHiddenDrawer(ItemHiddenMenu(
+        name: "Leaderboard",
+        baseStyle: myTextStyle,
+        selectedStyle: myTextStyle,
+      ), LeaderboardScreen()),
+      ScreenHiddenDrawer(ItemHiddenMenu(
         name: "Settings",
         baseStyle: myTextStyle,
         selectedStyle: myTextStyle,
-      ), SettingsScreen())
+      ), SettingsScreen()),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+        name: "Profile",
+        baseStyle: myTextStyle,
+        selectedStyle: myTextStyle,
+      ), UserProfileScreen()),
     ];
   }
   @override
@@ -48,7 +60,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       withAutoTittleName: false,
       backgroundColorAppBar: ColorList().midnight(),
       elevationAppBar: 0,
-      slidePercent: 60,
+      slidePercent: 50,
       screens: pages,
     );
   }
