@@ -24,7 +24,7 @@ class InstructionsScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: _deviceHeight! * 0.17),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Column(
                 children: [
                   SizedBox(
@@ -52,7 +52,6 @@ class InstructionsScreen extends StatelessWidget {
                                     TextSpan(
                                       text:
                                           "A game where anyone can test their musical "
-                                          "knowledge and see how well they fair against "
                                           "knowledge and see how well they fair against "
                                           "other musically savvy individuals.\n\n ",
                                     ),

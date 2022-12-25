@@ -9,7 +9,9 @@ import 'package:musical_standoff/screens/game_screen.dart';
 import 'package:musical_standoff/screens/game_settings.dart';
 import 'package:musical_standoff/screens/home_screen.dart';
 import 'package:musical_standoff/screens/instructions.dart';
+import 'package:musical_standoff/screens/login_screen.dart';
 import 'package:musical_standoff/screens/settings_screen.dart';
+import 'package:musical_standoff/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:musical_standoff/dependencies/color_list.dart';
 
@@ -48,8 +50,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
-          "/": (context) => HiddenDrawer(),
+          "/": (context) => const HiddenDrawer(),
           "settings": (context) => SettingsScreen(),
+          "register_page": (context) => const RegisterScreen(),
           "instructions": (context) => InstructionsScreen(),
           "game_modes": (context) => GameModeScreen(),
           "game_settings": (context) => GameSettingsScreen(),
