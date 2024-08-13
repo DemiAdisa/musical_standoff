@@ -18,7 +18,7 @@ Currently only one game mode was completed and that was the Group Play Mode
 You can view the new repo [here](https://github.com/DemiAdisa/musical_standoff_web).
 
 ## Wondering what the project was like?
-Here is a small [demo](https://drive.google.com/file/d/1KdsDxQFqUNTdgIlbi-XoB5Z3S1C9-EMg/view?usp=sharing) of the unfinished application.
+Here is a small [demo](https://youtu.be/z8yIzHTKN-8) of the unfinished application.
 
 
 ## Getting Started
