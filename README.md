@@ -20,6 +20,8 @@ You can view the new repo [here](https://github.com/DemiAdisa/musical_standoff_w
 ## Wondering what the project was like?
 Here is a small [demo](https://youtu.be/z8yIzHTKN-8) of the unfinished application.
 
+## Want to see the web version?
+Click [here](https://github.com/DemiAdisa/musical-standoff-web)
 
 ## Getting Started
 
